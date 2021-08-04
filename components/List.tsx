@@ -1,4 +1,4 @@
-import {useObservable, useObservables, ObservableProvider} from "proxily";
+import {useObservableProp, useObservables, ObservableProvider} from "proxily";
 import {ListItem} from "./ListItem";
 import React, {useContext, useEffect, useState} from "react";
 import {ListContext} from "../controllers/ListController";
@@ -13,7 +13,7 @@ export function List () {
     const {listItemContainerStyle} = styleController;
     const {undoCompletedItems, completedItems, toDoList} = listController;
     const {toDoListItems} = toDoList;
-    const [hasToast, setHasToast] = useObservable(listController.showToast);
+    const [hasToast, setHasToast] = useObservableProp(listController.showToast);
 
     return (
         <View style={{marginTop: 6}}>

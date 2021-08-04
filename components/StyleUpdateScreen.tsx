@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {StyleContext, StyleController} from "../controllers/StyleController";
 import {ListContext, ListController} from "../controllers/ListController";
 import {List} from "./List";
-import {Transaction, useObservable, useObservables, ObservableProvider,makeObservable} from "proxily";
+import {Transaction, useObservableProp, useObservables, ObservableProvider,makeObservable} from "proxily";
 import {ToDoList} from "../store";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
@@ -93,7 +93,7 @@ export function StyleList () {
     const {backgroundStyle} = useContext(StyleContext);
 
     return (
-        <ObservableProvider context={ListContext} value={() => new ListController(sampleToDoList)}>
+        <ObservableProvider context={ListContext} value={() => new ListController(sampleToDoList)} dependencies={[]}>
             <View  style={backgroundStyle}>
                 <List/>
             </View>
@@ -104,11 +104,11 @@ export function StyleList () {
 export function StyleFields () {
     useObservables();
     const toDoListStyle = useContext(StyleContext).todoListStyle;
-    const [backgroundColor, setBackgroundColor] = useObservable(toDoListStyle.backgroundColor);
-    const [listFontColor, setListFontColor] = useObservable(toDoListStyle.listFontColor);
-    const [listItemBackgroundColor, setListItemBackgroundColor] = useObservable(toDoListStyle.listItemBackgroundColor);
-    const [fontSize, setFontSize] = useObservable(toDoListStyle.fontSize);
-    const [navbarBg, setNavbarBg] = useObservable(toDoListStyle.navbarBg);
+    const [backgroundColor, setBackgroundColor] = useObservableProp(toDoListStyle.backgroundColor);
+    const [listFontColor, setListFontColor] = useObservableProp(toDoListStyle.listFontColor);
+    const [listItemBackgroundColor, setListItemBackgroundColor] = useObservableProp(toDoListStyle.listItemBackgroundColor);
+    const [fontSize, setFontSize] = useObservableProp(toDoListStyle.fontSize);
+    const [navbarBg, setNavbarBg] = useObservableProp(toDoListStyle.navbarBg);
     const [activeProp, setActiveProp] = useState('');
     // @ts-ignore
 

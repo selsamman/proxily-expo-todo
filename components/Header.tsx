@@ -33,7 +33,7 @@ export function  HeaderRight () {
         <View style={{flexDirection: 'row'}}>
             <Text style={{color: headerForegroundColor}}>{completedItems.length} Items to be Deleted - </Text>
             <TouchableHighlight onPress={undoCompletedItems}>
-                <Text style={{color: "#7099E3FF"}}> UNDO </Text>
+                <Text style={{color: ""}}> UNDO </Text>
             </TouchableHighlight>
         </View>
     )
