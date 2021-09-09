@@ -66,7 +66,6 @@ export class ListController {
             scheduleTask(this.deleteCompletedItems, {interval: 5000}, takeLatest);
         } else {
             this.showToast = false;
-            cancelTask(this.deleteCompletedItems,  takeLatest);
         }
     }
 

@@ -2,24 +2,19 @@ import React, {useContext, useState} from "react";
 import {StyleContext, StyleController} from "../controllers/StyleController";
 import {ListContext, ListController} from "../controllers/ListController";
 import {List} from "./List";
-import {Transaction, useObservableProp, useObservables, ObservableProvider,makeObservable} from "proxily";
+import {Transaction, useObservableProp, observer, ObservableProvider,observable} from "proxily";
 import {ToDoList} from "../store";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
-
-
 import {Button, Pressable, View, Text, FlatList} from "react-native";
 
+export const StyleUpdateScreen = observer(function StyleUpdateScreen ({navigation} : any) {
 
-export function StyleUpdateScreen ({navigation} : any) {
-
-    useObservables();
     const [transaction] = useState( () => new Transaction({timePositioning: true}));
 
     const todoListStyle = useContext(StyleContext).todoListStyle
     const [todoStyleController] = useState(() =>
-        makeObservable(new StyleController(todoListStyle), transaction));
-
+        observable(new StyleController(todoListStyle), transaction));
 
     const listController = useContext(ListContext);
     const {showStyle, hideStyle} = listController
@@ -64,7 +59,7 @@ export function StyleUpdateScreen ({navigation} : any) {
             </View>
         </StyleContext.Provider>
     );
-}
+});
 
 function HeaderRight ({styleController, transaction} : {styleController : StyleController, transaction : Transaction}) {
     const {headerForegroundColor} = styleController;
@@ -101,8 +96,7 @@ export function StyleList () {
     )
 }
 
-export function StyleFields () {
-    useObservables();
+const StyleFields = observer(function StyleFields () {
     const toDoListStyle = useContext(StyleContext).todoListStyle;
     const [backgroundColor, setBackgroundColor] = useObservableProp(toDoListStyle.backgroundColor);
     const [listFontColor, setListFontColor] = useObservableProp(toDoListStyle.listFontColor);
@@ -159,7 +153,7 @@ export function StyleFields () {
             </View>
         </View>
     );
-}
+});
 
 // Choose from a selection and invoke a setter
 function Selector ({prop, setter, choices} :
@@ -174,4 +168,4 @@ function Selector ({prop, setter, choices} :
               </Pressable>
           }/>
     )
-}
+};

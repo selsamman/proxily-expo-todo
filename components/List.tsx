@@ -1,4 +1,4 @@
-import {useObservableProp, useObservables, ObservableProvider} from "proxily";
+import {useObservableProp, observer, ObservableProvider} from "proxily";
 import {ListItem} from "./ListItem";
 import React, {useContext, useEffect, useState} from "react";
 import {ListContext} from "../controllers/ListController";
@@ -6,8 +6,7 @@ import {ListItemController, ListItemContext} from "../controllers/ListItemContro
 import {StyleContext} from "../controllers/StyleController";
 import {FlatList, Text, TouchableHighlight, View} from "react-native";
 
-export function List () {
-    useObservables()
+export const List = observer( function List () {
     const listController = useContext(ListContext);
     const styleController = useContext(StyleContext);
     const {listItemContainerStyle} = styleController;
@@ -27,4 +26,4 @@ export function List () {
                 }/>
         </View>
     );
-}
+});

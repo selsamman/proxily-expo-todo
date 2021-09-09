@@ -1,11 +1,10 @@
 import {Header, HeaderRight} from "./Header";
 import {List} from "./List";
 import React, {useContext} from 'react';
-import {useObservables} from "proxily";
+import {observer} from "proxily";
 import {StyleContext} from "../controllers/StyleController";
 
-export function MainScreen({navigation} : any) {
-    useObservables();
+export const MainScreen = observer(function MainScreen({navigation} : any) {
     const {headerBackgroundColor} = useContext(StyleContext);
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -18,6 +17,6 @@ export function MainScreen({navigation} : any) {
             <List />
         </>
     )
-}
+});
 
 

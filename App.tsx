@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useContext, useEffect, useState} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {persistAsync, useObservables, ObservableProvider} from "proxily";
+import {persistAsync, observer, ObservableProvider} from "proxily";
 import { ToDoList, TodoListStyle } from './store';
 import { AsyncStorage } from 'react-native';
 import { StyleContext, StyleController } from './controllers/StyleController';
@@ -30,8 +30,8 @@ export default function App() {
   if (toDoList && toDoListStyle) {
     return (
       <SafeAreaProvider>
-          <ObservableProvider context={StyleContext} value={()=>new StyleController(toDoListStyle)}>
-            <ObservableProvider context={ListContext} value={()=>new ListController(toDoList)}>
+          <ObservableProvider context={StyleContext} value={()=>new StyleController(toDoListStyle)} dependencies={[toDoListStyle]}>
+            <ObservableProvider context={ListContext} value={()=>new ListController(toDoList)} dependencies={[toDoList]}>
               <Content/>
             </ObservableProvider>
           </ObservableProvider>
@@ -41,8 +41,8 @@ export default function App() {
     return null;
 }
 
-function Content () {
-  useObservables();
+const Content = observer(function Content () {
+
   const {headerBackgroundColor, headerForegroundColor, backgroundStyle} = useContext(StyleContext);
   const navigationOptions = {
     headerStyle: {
@@ -66,4 +66,4 @@ function Content () {
       </Stack.Navigator>
     </NavigationContainer>
   )
-}
+});

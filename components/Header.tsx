@@ -1,12 +1,11 @@
 import {ListContext} from "../controllers/ListController";
-import {useObservables} from "proxily";
+import {observer} from "proxily";
 import React, {useContext} from "react";
 import {StyleContext} from "../controllers/StyleController";
 import {Pressable, View, Text, TouchableHighlight} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export function Header ({navigation} : any) {
-    useObservables();
+export const Header = observer(function Header ({navigation} : any) {
     const invokeStyle = () => navigation.navigate("Style");
     const {headerForegroundColor} = useContext(StyleContext);
     const {addItem} = useContext(ListContext);
@@ -23,10 +22,9 @@ export function Header ({navigation} : any) {
             <View style={{flex: 6}}></View>
         </View>
     );
-}
+});
 
-export function  HeaderRight () {
-    useObservables();
+export const HeaderRight = observer(function  HeaderRight () {
     const {completedItems, undoCompletedItems, showToast} = useContext(ListContext);
     const {headerForegroundColor} = useContext(StyleContext);
     return !showToast ? <></> : (
@@ -37,4 +35,4 @@ export function  HeaderRight () {
             </TouchableHighlight>
         </View>
     )
-}
+})

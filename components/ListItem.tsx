@@ -1,12 +1,11 @@
-import {useObservables} from "proxily";
+import {observer} from "proxily";
 import React, {useContext, useEffect} from "react";
 import {ListItemContext} from "../controllers/ListItemController";
 import {StyleContext} from "../controllers/StyleController";
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import Checkbox from 'expo-checkbox';
 
-export function ListItem () {
-    useObservables();
+export const ListItem = observer(function ListItem () {
     const listItemController = useContext(ListItemContext);
     const styleController = useContext(StyleContext);
     const {completed, toggleCompleted, selected, select, title, setTitle} = listItemController;
@@ -34,6 +33,4 @@ export function ListItem () {
             </View>
 
     );
-}
-
-
+});
